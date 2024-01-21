@@ -1,9 +1,14 @@
-import React from 'react'
+import ProductItems from "../components/ProductItems";
+import products from "../data/products.json";
 
 const Store = () => {
   return (
-    <div>Store</div>
-  )
-}
+    <div>
+      {products?.map((product) => (
+        <ProductItems {...product}/>
+      ))}
+    </div>
+  );
+};
 
-export default Store
+export default Store;

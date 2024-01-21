@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MenuIcon from "@mui/icons-material/Menu";
+import DeleteIcon from "@mui/icons-material/Delete";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 
@@ -76,8 +76,7 @@ const Navbar = () => {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "flex-end",
-                  px: [1],
-                  py: [2]
+                  py: [2],
                 }}
               >
                 <Box
@@ -99,23 +98,31 @@ const Navbar = () => {
                 <Divider />
                 <List component="nav">
                   <Box>
-                    <List >
-                      {["Inbox", "Starred", "Send email", "Drafts"].map(
-                        (text) => (
-                          <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                              <ListItemIcon>
-                                <MenuIcon />
-                              </ListItemIcon>
-                              <ListItemText primary="Dashboard" />
-                            </ListItemButton>
-                          </ListItem>
-                        )
-                      )}
+                    <List>
+                      <ListItem disablePadding>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <img
+                              src={"./"}
+                              alt={"name"}
+                              style={{ width: 24, height: 24, marginRight: 16 }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"hello"} secondary={`$${2}`} />
+                          <Typography variant="body2">${2}</Typography>
+                          <IconButton>
+                            <DeleteIcon  color="error"/>
+                          </IconButton>
+                        </ListItemButton>
+                      </ListItem>
                     </List>
                     <Divider sx={{ my: 1 }} />
                   </Box>
                 </List>
+
+                <Typography variant="h6" component="h6">
+                  Total: $1
+                </Typography>
               </Toolbar>
             </Drawer>
           </Toolbar>
