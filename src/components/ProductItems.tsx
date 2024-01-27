@@ -6,15 +6,17 @@ import {
   Typography,
 } from "@mui/material";
 import Card from "@mui/material/Card";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
-type ProductItem = {
+type ProductItemProps = {
   id: number;
   name: string;
   price: number;
   imgUrl: string;
 };
-const ProductItems = ({ id, name, price, imgUrl }: ProductItem) => {
-  const quantity: number = 0;
+const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
+  const {getItemQuantity, increaseCartQuantity}  = useShoppingCart()
+  const quantity: number = getItemQuantity(id);
   return (
     <>
       <Card
@@ -59,6 +61,7 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItem) => {
             <Button
               variant="contained"
               sx={{ fontSize: "16px", textTransform: "capitalize" }}
+              onClick={()=>increaseCartQuantity(id)}
             >
               + Add to Cart
             </Button>
@@ -74,7 +77,9 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItem) => {
               >
                 <span style={{ marginRight: "5px" }}>{quantity}</span>in cart
               </Typography>
-              <Button variant="contained" sx={{ fontSize: "18px" }}>
+              <Button variant="contained" sx={{ fontSize: "18px" }} 
+              onClick={()=>increaseCartQuantity(id)}
+              >
                 +
               </Button>
             </>

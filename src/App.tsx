@@ -4,18 +4,21 @@ import Store from "./pages/Store";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
 import { Container } from "@mui/material";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 const App = () => {
   return (
     <>
-      <Navbar />
-      <Container maxWidth="xl">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </Container>
+      <ShoppingCartProvider>
+        <Navbar />
+        <Container maxWidth="xl">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </Container>
+      </ShoppingCartProvider>
     </>
   );
 };

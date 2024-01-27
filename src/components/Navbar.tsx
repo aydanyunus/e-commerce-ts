@@ -16,6 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 import ProductList from "./ProductList";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const pages = ["home", "store", "about"];
 
@@ -25,6 +26,9 @@ const Navbar = () => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const { cartQuantity } = useShoppingCart();
+
   return (
     <>
       <AppBar position="relative" color="transparent">
@@ -51,7 +55,7 @@ const Navbar = () => {
                   aria-label="open drawer"
                 >
                   <Badge
-                    badgeContent={2}
+                    badgeContent={cartQuantity}
                     color="error"
                     anchorOrigin={{
                       vertical: "bottom",
