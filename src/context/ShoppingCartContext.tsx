@@ -10,6 +10,7 @@ type ShoppingCartContextProps = {
   decreaseCartQuantity: (id: number) => void;
   removeItem: (id: number) => void;
   cartQuantity: number;
+  cartItems: CartItem[]
 };
 
 type CartItem = {
@@ -81,6 +82,7 @@ export const ShoppingCartProvider = ({
         decreaseCartQuantity,
         removeItem,
         cartQuantity,
+        cartItems
       }}
     >
       {children}

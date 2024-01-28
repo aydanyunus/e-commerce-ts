@@ -27,11 +27,11 @@ const Navbar = () => {
     setOpen(!open);
   };
 
-  const { cartQuantity } = useShoppingCart();
+  const { cartQuantity, cartItems } = useShoppingCart();
 
   return (
     <>
-      <AppBar position="sticky" sx={{backgroundColor: "#fff"}}>
+      <AppBar position="sticky" sx={{ backgroundColor: "#fff" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: "flex" }}>
@@ -76,6 +76,7 @@ const Navbar = () => {
                   alignItems: "center",
                   justifyContent: "flex-end",
                   py: [2],
+                  width: "350px",
                 }}
               >
                 <Box
@@ -95,7 +96,11 @@ const Navbar = () => {
                   </IconButton>
                 </Box>
                 <Divider />
-                <ProductList />
+                <Box sx={{ overflowY: "auto", flexGrow: 1 }}>
+                  {cartItems?.map((item) => (
+                    <ProductList {...item} key={item.id} />
+                  ))}
+                </Box>
 
                 <Typography variant="h6" component="h6">
                   Total: $1
