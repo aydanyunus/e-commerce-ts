@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <>
-      <AppBar position="relative" color="transparent">
+      <AppBar position="sticky" sx={{backgroundColor: "#fff"}}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: "flex" }}>

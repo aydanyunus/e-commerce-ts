@@ -15,7 +15,12 @@ type ProductItemProps = {
   imgUrl: string;
 };
 const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
-  const {getItemQuantity, increaseCartQuantity}  = useShoppingCart()
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeItem,
+  } = useShoppingCart();
   const quantity: number = getItemQuantity(id);
   return (
     <>
@@ -38,7 +43,7 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
           height="400px"
           image={imgUrl}
           alt={name}
-          sx={{ objectFit: "cover", maxWidth:"100%", height:"400px" }}
+          sx={{ objectFit: "cover", maxWidth: "100%", height: "400px" }}
         />
         <CardContent
           sx={{
@@ -61,13 +66,17 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
             <Button
               variant="contained"
               sx={{ fontSize: "16px", textTransform: "capitalize" }}
-              onClick={()=>increaseCartQuantity(id)}
+              onClick={() => increaseCartQuantity(id)}
             >
               + Add to Cart
             </Button>
           ) : (
             <>
-              <Button variant="contained" sx={{ fontSize: "18px" }}>
+              <Button
+                variant="contained"
+                sx={{ fontSize: "18px" }}
+                onClick={() => decreaseCartQuantity(id)}
+              >
                 -
               </Button>
               <Typography
@@ -77,8 +86,10 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
               >
                 <span style={{ marginRight: "5px" }}>{quantity}</span>in cart
               </Typography>
-              <Button variant="contained" sx={{ fontSize: "18px" }} 
-              onClick={()=>increaseCartQuantity(id)}
+              <Button
+                variant="contained"
+                sx={{ fontSize: "18px" }}
+                onClick={() => increaseCartQuantity(id)}
               >
                 +
               </Button>
@@ -86,7 +97,11 @@ const ProductItems = ({ id, name, price, imgUrl }: ProductItemProps) => {
           )}
         </CardActions>
         <CardActions>
-          <Button variant="contained" color="error">
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => removeItem(id)}
+          >
             remove
           </Button>
         </CardActions>
