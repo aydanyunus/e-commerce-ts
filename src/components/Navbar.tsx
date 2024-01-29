@@ -17,6 +17,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useState } from "react";
 import ProductList from "./ProductList";
 import { useShoppingCart } from "../context/ShoppingCartContext";
+import products from "../data/products.json";
 
 const pages = ["home", "store", "about"];
 
@@ -28,6 +29,11 @@ const Navbar = () => {
   };
 
   const { cartQuantity, cartItems } = useShoppingCart();
+
+  const totalPrice = cartItems.reduce((total, cartItem)=> {
+    const selectedItem = products.find((item)=>item.id === cartItem.id)
+    return total + (selectedItem?.price || 0) * cartItem.quantity
+  },0)
 
   return (
     <>
@@ -96,14 +102,14 @@ const Navbar = () => {
                   </IconButton>
                 </Box>
                 <Divider />
-                <Box sx={{ overflowY: "auto", flexGrow: 1 }}>
+                <Box sx={{ overflowY: "auto", flexGrow: 1, width:"100%" }}>
                   {cartItems?.map((item) => (
                     <ProductList {...item} key={item.id} />
                   ))}
                 </Box>
 
                 <Typography variant="h6" component="h6">
-                  Total: $1
+                  Total: ${totalPrice}                  
                 </Typography>
               </Toolbar>
             </Drawer>
