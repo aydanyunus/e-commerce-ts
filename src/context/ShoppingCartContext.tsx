@@ -1,4 +1,10 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type ShoppingCartChildrenProps = {
   children: ReactNode;
@@ -10,7 +16,7 @@ type ShoppingCartContextProps = {
   decreaseCartQuantity: (id: number) => void;
   removeItem: (id: number) => void;
   cartQuantity: number;
-  cartItems: CartItem[]
+  cartItems: CartItem[];
 };
 
 type CartItem = {
@@ -27,7 +33,14 @@ export const useShoppingCart = () => {
 export const ShoppingCartProvider = ({
   children,
 }: ShoppingCartChildrenProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storedItems = localStorage.getItem("items");
+    return storedItems ? JSON.parse(storedItems) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
@@ -53,6 +66,7 @@ export const ShoppingCartProvider = ({
       }
     });
   };
+
   const decreaseCartQuantity = (id: number) => {
     setCartItems((currentItems) => {
       if (currentItems.find((item) => item.id === id)?.quantity === 1) {
@@ -68,6 +82,7 @@ export const ShoppingCartProvider = ({
       }
     });
   };
+
   const removeItem = (id: number) => {
     setCartItems((currentItems) => {
       return currentItems.filter((item) => item.id !== id);
@@ -82,7 +97,7 @@ export const ShoppingCartProvider = ({
         decreaseCartQuantity,
         removeItem,
         cartQuantity,
-        cartItems
+        cartItems,
       }}
     >
       {children}
